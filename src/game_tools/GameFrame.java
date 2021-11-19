@@ -11,9 +11,13 @@ public class GameFrame extends JFrame implements KeyListener {
 	public KeyRelease keyRelease;
 
 	public static final int DEFAULT_SIZE = 500;
-	public GamePanel gamePanel;
-	public GameFrame(KeyPress behaviors) {
-		this.keyPress = behaviors;
+	private GamePanel gamePanel;
+	/**
+	 * Creates a GameFrame with a `keyPress` key listener
+	 * @param keyPress
+	 */
+	public GameFrame(KeyPress keyPress) {
+		this.keyPress = keyPress;
 		this.gamePanel = new GamePanel();
 		this.setVisible(true);
 		this.setSize(DEFAULT_SIZE, DEFAULT_SIZE);
@@ -41,7 +45,8 @@ public class GameFrame extends JFrame implements KeyListener {
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
-	}
+   // TODO not yet implemented
+ }
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -54,17 +59,27 @@ public class GameFrame extends JFrame implements KeyListener {
 		if(keyRelease != null)
 			keyRelease.keyReleased(e);
 	}
-
+	
+	/**
+	 * Add your game's keyPress
+	 * @param keyPress
+	 */
 	public void addKeyPress(KeyPress keyPress) {
 		this.keyPress = keyPress;
 		this.addKeyListener(this);
 	}
-	
+	/**
+	 * Add your game's keyRelease
+	 * @param keyPress
+	 */
 	public void addKeyRelease(KeyRelease keyRelease) {
 		this.keyRelease = keyRelease;
 		this.addKeyListener(this);
 	}
-
+	/**
+	 * Set the scene of your game
+	 * @param GameScene
+	 */
 	public void setGameScene(GameScene scene) {
 		this.gamePanel.setGameScene(scene);
 	}

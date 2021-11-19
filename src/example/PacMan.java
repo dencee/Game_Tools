@@ -13,15 +13,16 @@ public class PacMan implements GameScene, KeyPress {
 	boolean openMouth;
 	int count = 0;
 	Ghost ghost = new Ghost();
+	GameOverScene gameOverScene = new GameOverScene();
 
 	GameFrame gameFrame = new GameFrame();
-	
+
 	public PacMan() {
 		gameFrame.setVisible(true);
 		gameFrame.addKeyPress(this);
 		gameFrame.setGameScene(this);
 		gameFrame.start();
-		
+
 	}
 
 	@Override
@@ -50,10 +51,8 @@ public class PacMan implements GameScene, KeyPress {
 			y -= 3;
 		} else if (event.getKeyCode() == KeyEvent.VK_DOWN) {
 			y += 3;
-		}
-		else if(event.getKeyCode() == KeyEvent.VK_ENTER) {
-			MyGameScene scene = new MyGameScene();
-			gameFrame.setGameScene(scene);
+		} else if (event.getKeyCode() == KeyEvent.VK_ENTER) {
+			gameFrame.setGameScene(gameOverScene);
 		}
 	}
 }

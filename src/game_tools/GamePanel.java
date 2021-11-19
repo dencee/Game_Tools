@@ -9,9 +9,9 @@ import javax.swing.Timer;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements ActionListener {
-	public GameScene gameScene;
+	private GameScene gameScene;
 	public static final int DEFAULT_SIZE = 500;
-	public Timer time = new Timer(1000 / 30, this);
+	private Timer time = new Timer(1000 / 30, this);
 
 	public GamePanel(GameScene game) {
 		this.gameScene = game;
