@@ -1,4 +1,4 @@
-module GameDemo {
-	requires java.desktop;
-	
-}
+//module GameDemo {
+//	requires java.desktop;
+//	
+//}
