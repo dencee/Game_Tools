@@ -1,13 +1,13 @@
-package example;
+package examples.pacman;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import game_tools.GameControlScene;
 import game_tools.GameFrame;
 import game_tools.GameScene;
-import game_tools.KeyPress;
 
-public class PacMan implements GameScene, KeyPress {
+public class PacMan implements GameScene, GameControlScene {
 	int x = 0;
 	int y = 200;
 	boolean openMouth;
@@ -19,10 +19,8 @@ public class PacMan implements GameScene, KeyPress {
 
 	public PacMan() {
 		gameFrame.setVisible(true);
-		gameFrame.addKeyPress(this);
 		gameFrame.setGameScene(this);
 		gameFrame.start();
-
 	}
 
 	@Override
@@ -55,4 +53,5 @@ public class PacMan implements GameScene, KeyPress {
 			gameFrame.setGameScene(gameOverScene);
 		}
 	}
+
 }
