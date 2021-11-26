@@ -32,6 +32,7 @@ class GameFrame extends JFrame implements KeyListener, MouseListener {
 	public void add(GamePanel panel) {
 		this.add((JPanel) panel);
 
+
 	}
 
 	@Override
@@ -97,6 +98,7 @@ class GameFrame extends JFrame implements KeyListener, MouseListener {
 		addControls();
 		this.setVisible(true);
 	}
+
 
 	public void start() {
 		this.gamePanel.start();

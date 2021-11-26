@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 
 import game_tools.Game;
 import game_tools.GameControlScene;
+
 import game_tools.GameScene;
 
 public class PacMan implements GameScene, GameControlScene {

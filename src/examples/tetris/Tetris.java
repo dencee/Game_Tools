@@ -3,7 +3,6 @@ package examples.tetris;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-
 import game_tools.Game;
 import game_tools.GameControlScene;
 
@@ -29,6 +28,7 @@ public class Tetris implements GameControlScene {
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			frame.setScene(level2);
+
 		}
 
 	}

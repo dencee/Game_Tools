@@ -17,6 +17,7 @@ public class Pong implements GameControlScene{
 	Level2 level2 = new Level2();
 	Pong(){
 		game.setScene(this);
+
 		game.start();
 		
 	}
@@ -32,6 +33,7 @@ public class Pong implements GameControlScene{
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 			game.setScene(level2);
+
 		}
 		
 	}
