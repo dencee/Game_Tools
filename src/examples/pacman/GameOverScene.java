@@ -1,12 +1,12 @@
-package example;
+package examples.pacman;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 
 import game_tools.GameScene;
 
 public class GameOverScene implements GameScene {
-
 	@Override
 	public void draw(Graphics g) {
 		g.fillRect(0, 0, 1000, 1000);

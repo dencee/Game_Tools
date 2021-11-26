@@ -1,37 +1,28 @@
 package game_tools;
 
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class GameFrame extends JFrame implements KeyListener {
-	public KeyPress keyPress;
-	public KeyRelease keyRelease;
+class GameFrame extends JFrame implements KeyListener, MouseListener {
+	public Controller controller;
 
 	public static final int DEFAULT_SIZE = 500;
-	private GamePanel gamePanel;
-	/**
-	 * Creates a GameFrame with a `keyPress` key listener
-	 * @param keyPress
-	 */
-	public GameFrame(KeyPress keyPress) {
-		this.keyPress = keyPress;
-		this.gamePanel = new GamePanel();
-		this.setVisible(true);
-		this.setSize(DEFAULT_SIZE, DEFAULT_SIZE);
-		if (keyPress != null) {
-			this.addKeyListener(this);
-		}
-	}
+	public int screenWidth = DEFAULT_SIZE;
+	public int screenHeight = DEFAULT_SIZE;
 
+	private GamePanel gamePanel;
+	
 	public GameFrame() {
 		this.gamePanel = new GamePanel();
 		this.setSize(DEFAULT_SIZE, DEFAULT_SIZE);
-		this.setVisible(true);
 		this.add(gamePanel);
-		
 	}
 
 	/**
@@ -40,51 +31,101 @@ public class GameFrame extends JFrame implements KeyListener {
 	 */
 	public void add(GamePanel panel) {
 		this.add((JPanel) panel);
-		
+
 	}
-	
+
+	@Override
+	public void setSize(int width, int height) {
+		this.screenWidth = width;
+		this.screenHeight = height;
+		super.setSize(width, height);
+	}
+
+	@Override
+	public void setSize(Dimension d) {
+		this.screenWidth = d.width;
+		this.screenHeight = d.height;
+		super.setSize(d);
+	}
+
 	@Override
 	public void keyTyped(KeyEvent e) {
-   // TODO not yet implemented
- }
+		controller.keyTyped(e);
+	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(keyPress != null)
-			keyPress.keyPressed(e);
+		if (controller != null)
+			controller.keyPressed(e);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(keyRelease != null)
-			keyRelease.keyReleased(e);
+		if (controller != null)
+			controller.keyReleased(e);
 	}
-	
+
 	/**
 	 * Add your game's keyPress
+	 * 
 	 * @param keyPress
 	 */
-	public void addKeyPress(KeyPress keyPress) {
-		this.keyPress = keyPress;
-		this.addKeyListener(this);
+	public void addController(Controller controller) {
+		this.controller = controller;
+		addControls();
 	}
-	/**
-	 * Add your game's keyRelease
-	 * @param keyPress
-	 */
-	public void addKeyRelease(KeyRelease keyRelease) {
-		this.keyRelease = keyRelease;
-		this.addKeyListener(this);
+
+	private void addControls() {
+		this.addKeyListener(controller);
+		this.addMouseListener(controller);
 	}
+
 	/**
 	 * Set the scene of your game
+	 * 
 	 * @param GameScene
 	 */
 	public void setGameScene(GameScene scene) {
 		this.gamePanel.setGameScene(scene);
+		addControls();
+		this.setVisible(true);
 	}
-	
+
+	public void setGameScene(GameControlScene gameControlScene) {
+		this.gamePanel.setGameScene(gameControlScene);
+		this.controller = gameControlScene;
+		addControls();
+		this.setVisible(true);
+	}
+
 	public void start() {
 		this.gamePanel.start();
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		controller.mouseClicked(e);
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		controller.mousePressed(e);
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		controller.mouseReleased(e);
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		controller.mouseEntered(e);
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		controller.mouseExited(e);
 	}
 }
