@@ -14,7 +14,6 @@ public class Sprite {
 	public boolean gotImage = false;
 
 	public Sprite(String imageLocation) {
-		System.out.println(getUsersProjectRootDirectory());
 		if(imageLocation.charAt(0) != '/')
 			loadImage("/"+imageLocation);
 		else 
