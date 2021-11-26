@@ -9,7 +9,6 @@ import game_tools.Game;
 import game_tools.GameControlScene;
 import game_tools.Sprite;
 
-
 public class FlappyBird implements GameControlScene {
 	float x = 100;
 	float y = 0;
@@ -20,14 +19,12 @@ public class FlappyBird implements GameControlScene {
 	Animation animation;
 
 	public FlappyBird() {
+		animation = new Animation();
 		game.setScene(this);
 		game.start();
-		animation = new Animation();
-		for(int i  = 0; i < 6; i++) {
-			animation.add(new Sprite("/examples/flappy/bird"+i+".png"));
+		for (int i = 0; i < 6; i++) {
+			animation.add(new Sprite("/examples/flappy/bird" + i + ".png"));
 		}
-		
-
 	}
 
 	@Override
@@ -35,7 +32,6 @@ public class FlappyBird implements GameControlScene {
 		// draw background
 		g.setColor(new Color(100, 150, 230));
 		g.fillRect(0, 0, game.screenWidth, game.screenHeight);
-		
 
 		// draw bird
 		drawBird(g);
@@ -54,7 +50,7 @@ public class FlappyBird implements GameControlScene {
 	}
 
 	public void drawBird(Graphics g) {
-		animation.draw(g,(int) x,(int) y, 100, 100);
+		animation.draw(g, (int) x, (int) y, 100, 100);
 	}
 
 	@Override
