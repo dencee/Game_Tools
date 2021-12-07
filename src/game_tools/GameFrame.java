@@ -48,6 +48,11 @@ class GameFrame extends JFrame implements KeyListener, MouseListener {
 		this.screenHeight = d.height;
 		super.setSize(d);
 	}
+	
+	public void setPreferredSize(int width, int height) {
+	    this.setPreferredSize(new Dimension(width, height));
+	    this.pack();
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -90,6 +95,7 @@ class GameFrame extends JFrame implements KeyListener, MouseListener {
 		this.gamePanel.setGameScene(scene);
 		addControls();
 		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	public void setGameScene(GameControlScene gameControlScene) {
@@ -97,13 +103,14 @@ class GameFrame extends JFrame implements KeyListener, MouseListener {
 		this.controller = gameControlScene;
 		addControls();
 		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
 
 	public void start() {
 		this.gamePanel.start();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	@Override

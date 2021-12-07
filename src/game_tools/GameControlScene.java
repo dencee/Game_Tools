@@ -1,11 +1,9 @@
 package game_tools;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-public interface GameControlScene extends  GameScene, Controller {
+public interface GameControlScene extends GameScene, Controller {
 
 	@Override
 	default void keyTyped(KeyEvent e) {
