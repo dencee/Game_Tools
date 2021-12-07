@@ -8,43 +8,31 @@ import java.awt.Rectangle;
 public class Hippo {
     /*
      * Member variables
+     * Create your name and
      */
-
     String location;
-    boolean isEating = false;
+    String name;
+    Color hippoColor;
 
-    public Hippo(String location) {
+    /*
+     * Constructor
+     */
+    public Hippo(String location, String name, Color hippoColor) {
         this.location = location;
-        this.width = 200;
-        this.height = 125;
-
+        this.name = name;
+        this.hippoColor = hippoColor;
+        
         setupPosition();
     }
     
-    void drawScore(Graphics g) {
-        g.setFont(new Font("Arial", Font.PLAIN, 16));
-        g.setColor(Color.BLACK);
-        
-        if( location.equalsIgnoreCase("up") ){
-            g.drawString("Melons eaten: " + melonsEaten, headX + headWidth, neckY);
-        } else if( location.equalsIgnoreCase("down") ) {
-            g.drawString("Melons eaten: " + melonsEaten, headX + headWidth, y + 10);
-        } else if( location.equalsIgnoreCase("left")) {
-            g.drawString("Melons eaten: " + melonsEaten, 0, neckY + height);
-        } else if( location.equalsIgnoreCase("right")) {
-            g.drawString("Melons eaten: " + melonsEaten, x - 10, neckY + height);
-        }
-    }
-
     void draw(Graphics g) {
         /*
-         * Local variable
+         * Local variables
          */
-        Color bodyColor = Color.GRAY;
-
-        update();
+        Color bodyColor = hippoColor;//Color.RED;
+        String hippoName = name;//"hippo";
         
-        drawScore(g);
+        drawScore(g, hippoName);
         
         // Body
         g.setColor(bodyColor);
@@ -59,7 +47,7 @@ public class Hippo {
         g.fillRect(teethX, teethY, teethLength, teethWidth);
         g.fillRect(teethX2, teethY2, teethLength, teethWidth);
 
-        // Ears
+        // Ears (draw before head)
         g.setColor(bodyColor);
         g.fillOval(earX, earY, earLength, earLength);
         g.fillOval(earX2, earY2, earLength, earLength);
@@ -81,8 +69,12 @@ public class Hippo {
         g.setColor(Color.BLACK);
         g.fillOval(noseX, noseY, noseWidth, noseLength);
         g.fillOval(noseX2, noseY2, noseWidth, noseLength);
-
+        
+        update(g);
     }
+    
+    
+    
     
     /*
      * ====================== DO NOT EDIT THE CODE BELOW ======================
@@ -96,6 +88,7 @@ public class Hippo {
     int eyeX, eyeX2, eyeY, eyeY2, eyeWidth, eyeLength;
     int noseX, noseX2, noseY, noseY2, noseWidth, noseLength;
     int melonsEaten;
+    boolean isEating = false;
     Rectangle collisionBox;
     
     void eat() {
@@ -105,9 +98,30 @@ public class Hippo {
         }
     }
 
-    private void update() {
+    void drawScore(Graphics g, String hippoName) {
+        g.setFont(new Font("Arial", Font.BOLD, 16));
+        g.setColor(Color.BLACK);
+        
+        if( location.equalsIgnoreCase("up") ){
+            g.drawString("Melons eaten: " + melonsEaten, headX + headWidth, neckY);
+            g.drawString(hippoName, headX + headWidth, neckY + 20);
+        }
+        else if( location.equalsIgnoreCase("down") ) {
+            g.drawString("Melons eaten: " + melonsEaten, headX + headWidth, y + 10);
+            g.drawString(hippoName, headX + headWidth, y + 10 + 20);
+        }
+        else if( location.equalsIgnoreCase("left")) {
+            g.drawString("Melons eaten: " + melonsEaten, 5, neckY + height);
+            g.drawString(hippoName, 5, neckY + height + 20);
+        }
+        else if( location.equalsIgnoreCase("right")) {
+            g.drawString("Melons eaten: " + melonsEaten, x - 30, neckY + height);
+            g.drawString(hippoName, x - 30, neckY + height + 20);
+        }
+    }
+    
+    private void update(Graphics g) {
         if (isEating) {
-            
             if (location.equalsIgnoreCase("up") || location.equalsIgnoreCase("down")) {
                 
                 if (neckWidth > height / 2) {
@@ -124,7 +138,7 @@ public class Hippo {
                 if( location.equalsIgnoreCase("down") ){
                     neckY -= neckSpeed;
                 }
-
+                
             } else if (location.equalsIgnoreCase("left") || location.equalsIgnoreCase("right") ) {
                 
                 if (neckLength > width / 2) {
@@ -272,16 +286,13 @@ public class Hippo {
             this.noseX = this.noseX2 = headX - headLength / 4;
             this.noseY = neckY - noseLength;
             this.noseY2 = neckY + neckWidth - noseLength / 2;
-
         }
     }
 
     private void setupPosition() {
         if (location.equalsIgnoreCase("up") || location.equalsIgnoreCase("down")) {
-            int temp = height;
-            this.height = width;
-            this.width = temp;
-            
+            this.width = 125;
+            this.height = 200;
             this.startNeckSpeed = 15;
             this.neckLength = width / 5;
             this.neckWidth = height / 4;
@@ -293,6 +304,8 @@ public class Hippo {
             }
             
         } else if(location.equalsIgnoreCase("left") || location.equalsIgnoreCase("right")) {
+            this.width = 200;
+            this.height = 125;
             this.startNeckSpeed = 15;
             this.neckLength = width / 4;
             this.neckWidth = height / 5;

@@ -8,11 +8,8 @@ import java.util.Random;
 public class Melon {
     static final int RADIUS = 10;
     static final int DIAMETER = 2 * RADIUS;
-    int x, y;
-    double xSpeed;
-    double ySpeed;
-    double angle;
-    int speed;
+    int x, y, speed;
+    double xSpeed, ySpeed, angle;
     Rectangle collisionBox;
     
     boolean insideBoard = true;
@@ -23,17 +20,16 @@ public class Melon {
          */
         this.x = x - RADIUS;
         this.y = y - RADIUS;
-
-        collisionBox = new Rectangle(x - RADIUS, y - RADIUS, DIAMETER, DIAMETER);
         
         speed = new Random().nextInt(10) + 5;
         angle = Math.toRadians(new Random().nextDouble() * 360);
         xSpeed = Math.sin(angle) * speed;
         ySpeed = -Math.cos(angle) * speed;
+        
+        collisionBox = new Rectangle(x - RADIUS, y - RADIUS, DIAMETER, DIAMETER);
     }
 
     void update() {
-        
         x += xSpeed;
         y += ySpeed;
         
@@ -57,7 +53,11 @@ public class Melon {
         if( insideBoard && distance >= (HungryHungryHippos.GAME_BOARD_WIDTH / 2) - RADIUS) {
             double tangent = Math.atan2(distY, distX);
             this.angle = (2 * tangent) - this.angle;
-
+            
+            /*
+             * For the reflection angle the opposite and adjacent
+             * angle sides are swapped
+             */
             xSpeed = Math.sin(angle) * speed;
             ySpeed = -Math.cos(angle) * speed;
             

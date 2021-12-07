@@ -31,9 +31,9 @@ import game_tools.GameScene;
  * 
  * 1. Create member variables in the Hippo class for each hippo's name and color.
  * 2. Make the Hippo constructor take 2 additional parameters that set the name and color.
- * 3. Change the Hippo's draw method so the hippo is the correct color.
- * 4. Create a method in the Hippo class that displays the hippo's name and number of melons
- *    they've eaten.
+ * 3. Change the Hippo's draw method so the hippo has the correct name and color.
+ * 4. In this class, call each hippo's draw method and check if they're eating
+ *    if the game has started.
  */
 public class HungryHungryHippos implements GameScene, GameControlScene {
     static final int GAME_WIDTH = 800;
@@ -46,21 +46,27 @@ public class HungryHungryHippos implements GameScene, GameControlScene {
     /*
      * Member variables
      */
-    boolean startGame = false;
+    Color bgColor = new Color(100, 150, 50);
     Color boardColor = new Color(138, 198, 193);
     Game gameFrame = new Game();
+    boolean startGame = false;
 
-    Hippo h1 = new Hippo("up");
-    Hippo h2 = new Hippo("down");
-    Hippo h3 = new Hippo("left");
-    Hippo h4 = new Hippo("right");
+    //Hippo myHippoObject = new Hippo("left");
+    Hippo h1 = new Hippo("up", "Lizzy", Color.PINK);
+    Hippo h2 = new Hippo("down", "Henry", Color.ORANGE);
+    Hippo h3 = new Hippo("left", "Homer", Color.GREEN);
+    Hippo h4 = new Hippo("right", "Harry", Color.YELLOW);
 
     public HungryHungryHippos() {
+        gameFrame.setTitle("Hungry Hungry Hippos");
         gameFrame.setScene(this);
         gameFrame.start();
         gameFrame.setSize(GAME_WIDTH, GAME_HEIGHT);
-
         setup();
+        
+        String instructions = "Press '1', '2', '3', '4' to make the hippos eat\n";
+        instructions += "Press 's' to start";
+        JOptionPane.showMessageDialog(null, instructions);
     }
 
     @Override
@@ -68,7 +74,7 @@ public class HungryHungryHippos implements GameScene, GameControlScene {
         /*
          * Background
          */
-        g.setColor(Color.WHITE);
+        g.setColor(bgColor);
         g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 
         /*
@@ -77,15 +83,31 @@ public class HungryHungryHippos implements GameScene, GameControlScene {
         g.setColor(boardColor);
         g.fillOval(GAME_BOARD_X, GAME_BOARD_Y, GAME_BOARD_WIDTH, GAME_BOARD_WIDTH);
 
+        /*
+         * Draw all the melons
+         */
         drawMelons(g);
 
+        /*
+         * Draw all the hippos
+         */
+        //myHippoObject.draw(g);
         h1.draw(g);
         h2.draw(g);
         h3.draw(g);
         h4.draw(g);
         
         if (startGame) {
+            /*
+             * Move all the melons
+             */
             updateMelons();
+            
+            /*
+             * Check if a hippo is eating a melon by calling the
+             * checkHippoEating(myHippoObject) method. Make sure to do
+             * this for all of your hippos!
+             */
             checkHippoEating(h1);
             checkHippoEating(h2);
             checkHippoEating(h3);
@@ -109,7 +131,13 @@ public class HungryHungryHippos implements GameScene, GameControlScene {
             h4.eat();
         }
     }
-
+    
+    
+    
+    /*
+     * ====================== DO NOT EDIT THE CODE BELOW ======================
+     */
+    
     ArrayList<Melon> melons;
 
     public void setup() {
@@ -120,14 +148,10 @@ public class HungryHungryHippos implements GameScene, GameControlScene {
         Random rand = new Random();
 
         for (int i = 0; i < NUM_MELONS; i++) {
-            int x = gameCenterX + Melon.RADIUS + 20 - rand.nextInt(40);
-            int y = gameCenterY + Melon.RADIUS + 20 - rand.nextInt(40);
+            int x = gameCenterX + Melon.RADIUS + 30 - rand.nextInt(60);
+            int y = gameCenterY + Melon.RADIUS + 30 - rand.nextInt(60);
             melons.add(new Melon(x, y));
         }
-        
-        String instructions = "Press '1', '2', '3', '4' to make the hippos eat\n";
-        instructions += "Press 's' to start";
-        JOptionPane.showMessageDialog(null, instructions);
     }
 
     public void addMelon() {

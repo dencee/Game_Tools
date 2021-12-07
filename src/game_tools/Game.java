@@ -14,6 +14,10 @@ public class Game {
     public void start() {
         frame.start();
     }
+    
+    public void setTitle(String title) {
+        this.frame.setTitle(title);
+    }
 
     public void setSize(int width, int height) {
         this.screenWidth = width;
