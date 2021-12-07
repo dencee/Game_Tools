@@ -13,6 +13,8 @@ public class Hippo {
     String location;
     String name;
     Color hippoColor;
+    int startNeckSpeed = 15;
+    int neckMoveDistance = 100;
 
     /*
      * Constructor
@@ -81,7 +83,7 @@ public class Hippo {
      */
     
     int x, y, width, height;
-    int neckX, neckY, neckWidth, neckLength, startNeckSpeed, neckSpeed = 0;
+    int neckX, neckY, neckWidth, neckLength, neckSpeed = 0;
     int headX, headX2, headY, headY2, headWidth, headLength;
     int earX, earX2, earY, earY2, earLength = 30;
     int teethX, teethX2, teethY, teethY2, teethWidth, teethLength;
@@ -124,7 +126,7 @@ public class Hippo {
         if (isEating) {
             if (location.equalsIgnoreCase("up") || location.equalsIgnoreCase("down")) {
                 
-                if (neckWidth > height / 2) {
+                if (neckWidth > neckMoveDistance) {
                     neckSpeed = -neckSpeed;
                 } else if (neckWidth + neckSpeed < height / 4) {
                     neckWidth = height / 4;
@@ -141,7 +143,7 @@ public class Hippo {
                 
             } else if (location.equalsIgnoreCase("left") || location.equalsIgnoreCase("right") ) {
                 
-                if (neckLength > width / 2) {
+                if (neckLength > neckMoveDistance) {
                     neckSpeed = -neckSpeed;
                 } else if (neckLength + neckSpeed < width / 4) {
                     neckLength = width / 4;
@@ -293,7 +295,6 @@ public class Hippo {
         if (location.equalsIgnoreCase("up") || location.equalsIgnoreCase("down")) {
             this.width = 125;
             this.height = 200;
-            this.startNeckSpeed = 15;
             this.neckLength = width / 5;
             this.neckWidth = height / 4;
             
@@ -306,7 +307,6 @@ public class Hippo {
         } else if(location.equalsIgnoreCase("left") || location.equalsIgnoreCase("right")) {
             this.width = 200;
             this.height = 125;
-            this.startNeckSpeed = 15;
             this.neckLength = width / 4;
             this.neckWidth = height / 5;
             this.collisionBox = new Rectangle(headX, headY, headX2 + headWidth, headY2 + headLength);
