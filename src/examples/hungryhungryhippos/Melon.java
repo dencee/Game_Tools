@@ -59,6 +59,10 @@ public class Melon {
             y = HungryHungryHippos.GAME_BOARD_Y + (HungryHungryHippos.GAME_BOARD_WIDTH / 2);
         }
         else if( insideBoard && distance >= (HungryHungryHippos.GAME_BOARD_WIDTH / 2) - RADIUS) {
+            /*
+             * 5 deg of random spin angle to melons don't bounce back and forth
+             * along the same line
+             */
             double randomSpin = Math.toRadians((new Random().nextDouble() * 10) - 5);
             double tangent = Math.atan2(distY, distX);
             this.angle = (2 * tangent) - this.angle;
