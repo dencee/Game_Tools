@@ -59,6 +59,7 @@ public class Melon {
             y = HungryHungryHippos.GAME_BOARD_Y + (HungryHungryHippos.GAME_BOARD_WIDTH / 2);
         }
         else if( insideBoard && distance >= (HungryHungryHippos.GAME_BOARD_WIDTH / 2) - RADIUS) {
+            double randomSpin = Math.toRadians((new Random().nextDouble() * 10) - 5);
             double tangent = Math.atan2(distY, distX);
             this.angle = (2 * tangent) - this.angle;
             
@@ -66,8 +67,8 @@ public class Melon {
              * For the reflection angle the opposite and adjacent
              * angle sides are swapped
              */
-            xSpeed = Math.sin(angle) * speed;
-            ySpeed = -Math.cos(angle) * speed;
+            xSpeed = Math.sin(angle + randomSpin) * speed;
+            ySpeed = -Math.cos(angle + randomSpin) * speed;
             
             insideBoard = false;
             isCollision = true;
