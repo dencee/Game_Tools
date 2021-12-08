@@ -34,6 +34,7 @@ import game_tools.GameScene;
  * 3. Change the Hippo's draw method so the hippo has the correct name and color.
  * 4. In this class, call each hippo's draw method and check if they're eating
  *    if the game has started.
+ * 5. In this class, make your hippos eat when a key is pressed
  */
 public class HungryHungryHippos implements GameScene, GameControlScene {
     static final int GAME_WIDTH = 800;
@@ -51,11 +52,7 @@ public class HungryHungryHippos implements GameScene, GameControlScene {
     Game gameFrame = new Game();
     boolean startGame = false;
 
-    //Hippo myHippoObject = new Hippo("left");
-    Hippo h1 = new Hippo("up", "Lizzy", Color.PINK);
-    Hippo h2 = new Hippo("down", "Henry", Color.ORANGE);
-    Hippo h3 = new Hippo("left", "Homer", Color.GREEN);
-    Hippo h4 = new Hippo("right", "Harry", Color.YELLOW);
+    Hippo myHippoObject = new Hippo("left");
 
     public HungryHungryHippos() {
         gameFrame.setTitle("Hungry Hungry Hippos");
@@ -64,7 +61,7 @@ public class HungryHungryHippos implements GameScene, GameControlScene {
         gameFrame.setSize(GAME_WIDTH, GAME_HEIGHT);
         setup();
         
-        String instructions = "Press '1', '2', '3', '4' to make the hippos eat\n";
+        String instructions = "Press '1' to make the hippo eat\n";
         instructions += "Press 's' to start";
         JOptionPane.showMessageDialog(null, instructions);
     }
@@ -91,11 +88,7 @@ public class HungryHungryHippos implements GameScene, GameControlScene {
         /*
          * Draw all the hippos
          */
-        //myHippoObject.draw(g);
-        h1.draw(g);
-        h2.draw(g);
-        h3.draw(g);
-        h4.draw(g);
+        myHippoObject.draw(g);
         
         if (startGame) {
             /*
@@ -108,10 +101,7 @@ public class HungryHungryHippos implements GameScene, GameControlScene {
              * checkHippoEating(myHippoObject) method. Make sure to do
              * this for all of your hippos!
              */
-            checkHippoEating(h1);
-            checkHippoEating(h2);
-            checkHippoEating(h3);
-            checkHippoEating(h4);
+            checkHippoEating(myHippoObject);
         }
     }
 
@@ -119,16 +109,19 @@ public class HungryHungryHippos implements GameScene, GameControlScene {
     public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
 
+        /*
+         * Bind a key to make your hippos eat
+         */
         if (keyCode == KeyEvent.VK_S) {
             startGame = true;
         } else if (keyCode == KeyEvent.VK_1) {
-            h1.eat();
+            myHippoObject.eat();
         } else if (keyCode == KeyEvent.VK_2) {
-            h2.eat();
+            
         } else if (keyCode == KeyEvent.VK_3) {
-            h3.eat();
+            
         } else if (keyCode == KeyEvent.VK_4) {
-            h4.eat();
+            
         }
     }
     
