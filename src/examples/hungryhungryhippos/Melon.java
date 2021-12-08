@@ -42,6 +42,7 @@ public class Melon {
     }
 
     boolean checkCollision() {
+        boolean isCollision = false;
         float gameBoardCenterX = HungryHungryHippos.GAME_BOARD_X + (HungryHungryHippos.GAME_BOARD_WIDTH / 2);
         float gameBoardCenterY = HungryHungryHippos.GAME_BOARD_Y + (HungryHungryHippos.GAME_BOARD_WIDTH / 2);
         float distX = gameBoardCenterX - x;
@@ -49,8 +50,15 @@ public class Melon {
         double distance = Math.sqrt((distX * distX) + (distY * distY));
         
         collisionBox.setBounds(x - RADIUS, y - RADIUS, DIAMETER, DIAMETER);
-
-        if( insideBoard && distance >= (HungryHungryHippos.GAME_BOARD_WIDTH / 2) - RADIUS) {
+        
+        if( distance > (HungryHungryHippos.GAME_BOARD_WIDTH / 2) + RADIUS ) {
+            /*
+             * Reset if way outside board for some reason
+             */
+            x = HungryHungryHippos.GAME_BOARD_X + (HungryHungryHippos.GAME_BOARD_WIDTH / 2);
+            y = HungryHungryHippos.GAME_BOARD_Y + (HungryHungryHippos.GAME_BOARD_WIDTH / 2);
+        }
+        else if( insideBoard && distance >= (HungryHungryHippos.GAME_BOARD_WIDTH / 2) - RADIUS) {
             double tangent = Math.atan2(distY, distX);
             this.angle = (2 * tangent) - this.angle;
             
@@ -62,10 +70,11 @@ public class Melon {
             ySpeed = -Math.cos(angle) * speed;
             
             insideBoard = false;
-            return true;
+            isCollision = true;
+        } else {
+            insideBoard = true;
         }
         
-        insideBoard = true;
-        return false;
+        return isCollision;
     }
 }
